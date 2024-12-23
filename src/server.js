@@ -35,7 +35,7 @@ server.use('/api-docu', swaggerExpress.serve, swaggerExpress.setup(swaggerDocu))
 
 // Rutas
 server.use('/', routes);
-app.get('/', (req, res) => {
+server.get('/', (req, res) => {
     res.json({ message: 'API funciona correcatmente hacer pruebas en https://apiuserchallenge.onrender.com/api-docu' });
 });
 
