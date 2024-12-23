@@ -48,7 +48,7 @@ const { registerUser, loginUser, getUsers } = require('../controllers/userContro
  *       400:
  *         description: Datos inválidos o usuario ya existente
  *       500:
- *         description: Error interno del servidor
+ *         description: Error al registrar el usuario
  */
 router.post('/register', registerUser);
 
@@ -85,8 +85,6 @@ router.post('/register', registerUser);
  *         description: Credenciales incorrectas
  *       400:
  *         description: Datos incompletos
- *       500:
- *         description: Error interno del servidor
  */
 router.post('/login', loginUser);
 
@@ -111,8 +109,6 @@ router.post('/login', loginUser);
  *                 email: "usuario1@example.com"
  *       401:
  *         description: Token no válido o no proporcionado
- *       500:
- *         description: Error interno del servidor
  */
 router.get('/get', authenticateToken, getUsers);
 
