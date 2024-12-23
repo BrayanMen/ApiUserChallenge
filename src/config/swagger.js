@@ -3,6 +3,7 @@ const swaggerExpress  = require("swagger-ui-express");
 
 const PORT = process.env.PORT || 3001;
 const DB_HOST= process.env.DB_HOST || 'localhost';
+const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
 
 const swaggerConfig = {
     swaggerDefinition: {
@@ -14,7 +15,7 @@ const swaggerConfig = {
         },
         servers: [
             {
-                url: `http://${DB_HOST}:${PORT}`,
+                url: `${protocol}://${DB_HOST}:${PORT}`,
                 description: 'Servidor local'
             }
         ],
