@@ -1,6 +1,9 @@
 const swaggerJs = require("swagger-jsdoc");
 const swaggerExpress  = require("swagger-ui-express");
 
+const PORT = process.env.PORT || 3001;
+const DB_HOST= process.env.DB_HOST || 'localhost';
+
 const swaggerConfig = {
     swaggerDefinition: {
         openapi: '3.0.0',
@@ -11,7 +14,7 @@ const swaggerConfig = {
         },
         servers: [
             {
-                url: 'http://localhost:3001',
+                url: `http://${DB_HOST}:${PORT}`,
                 description: 'Servidor local'
             }
         ],
