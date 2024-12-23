@@ -11,6 +11,7 @@ const server = express();
 
 const PORT = process.env.PORT || 3001;
 const DB_HOST = process.env.DB_HOST || 'localhost';
+const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
 
 // Middlewares
 server.use(cors());
@@ -22,7 +23,7 @@ server.use(morgan('dev'));
 
 // Configurar CORS
 server.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', `http://${DB_HOST}:${PORT}`);
+    res.header('Access-Control-Allow-Origin', `${protocol}://${DB_HOST}:${PORT}`);
     res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
