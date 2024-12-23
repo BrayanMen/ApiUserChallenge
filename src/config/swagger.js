@@ -1,9 +1,11 @@
 const swaggerJs = require("swagger-jsdoc");
-const swaggerExpress  = require("swagger-ui-express");
+const swaggerExpress = require("swagger-ui-express");
 
 const PORT = process.env.PORT || 3001;
-const DB_HOST= process.env.DB_HOST || 'localhost';
 const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
+const HOST = process.env.NODE_ENV === 'production' 
+    ? 'apiuserchallenge.onrender.com' 
+    : 'localhost';
 
 const swaggerConfig = {
     swaggerDefinition: {
@@ -15,8 +17,12 @@ const swaggerConfig = {
         },
         servers: [
             {
-                url: `${protocol}://${DB_HOST}:${PORT}`,
-                description: 'Servidor local'
+                url: `${protocol}://${HOST}`,
+                description: 'Servidor de Producción'
+            },
+            {
+                url: `${protocol}://localhost:${PORT}`,
+                description: 'Servidor Local'
             }
         ],
         components: {
@@ -34,7 +40,7 @@ const swaggerConfig = {
 
 const swaggerDocu = swaggerJs(swaggerConfig);
 
-module.exports ={
+module.exports = {
     swaggerExpress,
     swaggerDocu
-}
+};
