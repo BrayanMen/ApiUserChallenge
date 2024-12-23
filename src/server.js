@@ -4,10 +4,13 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
-const {swaggerDocu, swaggerExpress} = require('./config/swagger')
+const { swaggerDocu, swaggerExpress } = require('./config/swagger')
 const errorHandler = require('./middleware/errorHandler');
 const routes = require('./routes/index');
 const server = express();
+
+const PORT = process.env.PORT || 3001;
+const DB_HOST = process.env.DB_HOST || 'localhost';
 
 // Middlewares
 server.use(cors());
@@ -19,7 +22,7 @@ server.use(morgan('dev'));
 
 // Configurar CORS
 server.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.header('Access-Control-Allow-Origin', `http://${DB_HOST}:${PORT}`);
     res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
@@ -31,6 +34,9 @@ server.use('/api-docu', swaggerExpress.serve, swaggerExpress.setup(swaggerDocu))
 
 // Rutas
 server.use('/', routes);
+app.get('/', (req, res) => {
+    res.json({ message: 'API funciona correcatmente hacer pruebas en https://apiuserchallenge.onrender.com/api-docu' });
+});
 
 // Middleware de errores
 server.use(errorHandler);
